@@ -32,11 +32,19 @@
     ```shell
     go build -ldflags="-s -w" -o earthquake-crawler cmd/main.go
     ```
-4. 需要交叉编译的情况(以目标平台linux/arm64为例)
+4. 需要交叉编译的情况，下面以目标平台 linux/arm64 为例：
     ```shell
     GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o earthquake-crawler cmd/main.go
     ```
-5. 使用命令行运行，首次运行会自动生成空配置文件于data/config.toml，请自行修改配置
+
+    常见的 32 位 ARM 路由器（如 MT7621 等 armv7 SoC）：
+    ```shell
+    GOOS=linux GOARCH=arm GOARM=7 CGO_ENABLED=0 go build -ldflags="-s -w" -o earthquake-crawler cmd/main.go
+    ```
+
+5. 使用命令行运行，首次运行会自动生成空配置文件于 data/config.toml，请自行修改配置。
+   仓库内另提供了一份带注释的配置模板 `internal/config/config.template.toml`，
+   可以对照其中的字段说明来填写，比对着空配置猜要快。
 
 ### Docker
 1. 不推荐使用Docker部署
